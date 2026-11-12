@@ -34,7 +34,7 @@ function heroEntrance() {
   animate(".hero h1 .word > span", { y: ["105%", "0%"] }, { duration: 0.9, ease, delay: stagger(0.08, { startDelay: 0.15 }) });
   animate(intro, { opacity: [0, 1], y: [16, 0] }, { duration: 0.7, ease, delay: stagger(0.08, { startDelay: 0.35 }) });
   document.querySelector(".hero .intro")?.style.setProperty("opacity", 1);
-  animate("#hero-scene", { opacity: [0, 1], scale: [0.94, 1] }, { duration: 1.6, ease, delay: 0.1 });
+  animate("#bg-scene", { opacity: [0, 1], scale: [1.04, 1] }, { duration: 1.8, ease, delay: 0.05 });
 }
 
 function revealOnScroll() {
@@ -59,15 +59,11 @@ function revealOnScroll() {
 function heroDepth() {
   const hero = document.querySelector(".hero-wrap");
   if (!hero) return;
-  // Text drifts up and fades a little as the hero scrolls away; the 3D scene reads the same progress.
+  // Hero text drifts up and fades a little as it scrolls away.
   scroll(animate(".hero .intro", { y: [0, -80], opacity: [1, 0.2] }, { ease: "linear" }), {
     target: hero,
     offset: ["start start", "end start"],
   });
-  scroll(
-    (progress) => window.dispatchEvent(new CustomEvent("hero:scroll", { detail: progress })),
-    { target: hero, offset: ["start start", "end start"] }
-  );
 }
 
 function progressBar() {
