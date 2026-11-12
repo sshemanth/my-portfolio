@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sri Sai Hemanth Bollepalli · Medical AI Researcher</title>
-<meta name="description" content="Sri Sai Hemanth Bollepalli, medical AI researcher working on deep learning for medical image analysis and clinical signals.">
+<meta name="description" content="Sri Sai Hemanth Bollepalli, medical AI researcher. Brain metastasis segmentation on MRI (BraTS-METS, MICCAI 2026), knee MRI from report-derived labels, skin lesion diagnosis and atrial fibrillation detection from ECGs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@ header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 9
 .links a:hover{color:var(--text)}
 .nav-cta{font-size:14px;font-weight:500;height:40px;display:inline-flex;align-items:center;padding:0 16px;border-radius:10px;background:var(--navy);color:var(--on-navy);transition:background-color .15s var(--ease)}
 .nav-cta:hover{background:var(--navy-2)}
-@media (max-width:1060px){.links{display:none}}
+@media (max-width:960px){.links{display:none}}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,640px);align-items:center;padding-top:120px;padding-bottom:140px;min-height:calc(100svh - 68px)}
@@ -189,6 +189,50 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .js .rise,.js .stagger>*,.js .hero .intro{opacity:0}
 .no-motion .rise,.no-motion .stagger>*,.no-motion .hero .intro{opacity:1!important}
 @media (prefers-reduced-motion:reduce){.js .rise,.js .stagger>*,.js .hero .intro{opacity:1}html{scroll-behavior:auto}}
+
+/* hero facts */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);max-width:640px}
+.facts dt{font:400 24px/1.2 var(--serif);color:var(--text)}
+.facts dd{margin-top:6px;font-size:13px;line-height:1.5;color:var(--muted)}
+@media (max-width:640px){.facts{grid-template-columns:1fr;gap:16px}}
+
+/* publication and project entries */
+.cite{font-size:14px;color:var(--muted);margin-top:8px}
+.cite strong{font-weight:500;color:var(--text-2)}
+.q{font:400 19px/1.45 var(--serif);color:var(--text);margin-top:14px;max-width:56ch}
+.work .meta{margin-top:12px}
+.fig{margin:20px 0 4px;max-width:760px}
+.fig img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);background:#fff}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:10px;max-width:68ch}
+.note{font-size:14px;color:var(--muted);margin-top:14px;max-width:68ch}
+.finding{margin-top:20px;padding-left:16px;border-left:2px solid var(--navy);max-width:66ch}
+.finding p{font:400 17px/1.55 var(--serif);color:var(--text);margin-top:4px}
+.bib{background:none;border:0;padding:0;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.bibtex{margin-top:12px;max-width:760px;overflow-x:auto;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text-2);background:color-mix(in srgb,var(--surface) 75%,transparent);border:1px solid var(--line);border-radius:10px;padding:14px 16px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.mini-facts{display:flex;flex-wrap:wrap;gap:16px 40px;margin-top:18px}
+.mini-facts dt{font:400 22px/1.2 var(--serif)}
+.mini-facts dd{font-size:13px;color:var(--muted);margin-top:4px;max-width:30ch}
+
+.work li>div,.body-grid>div,.focus-wrap{min-width:0}
+/* result charts */
+.m-chart{margin-top:20px;max-width:680px;display:grid;gap:12px}
+.m-title{font-size:13px;font-weight:500;color:var(--muted);margin-top:8px}
+.m-title:first-child{margin-top:0}
+.m-legend{display:flex;gap:20px;font-size:13px;color:var(--muted)}
+.m-legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{display:inline-block;width:12px;height:6px;border-radius:3px}
+.metric{display:grid;grid-template-columns:minmax(150px,220px) 1fr minmax(96px,auto);align-items:center;gap:16px;font-size:14px}
+.m-label{color:var(--text-2)}
+.m-val{color:var(--text);text-align:right;font-size:13px}
+.m-bars{display:grid;gap:4px;background:linear-gradient(90deg,var(--line-soft) 0 100%) center/100% 1px no-repeat}
+.m-bars i,.sw{background:color-mix(in srgb,var(--text) 22%,transparent)}
+.m-bars i{display:block;height:6px;border-radius:3px;transform-origin:0 50%;transform:scaleX(var(--v))}
+.m-bars i.b1,.sw.b1{background:var(--navy)}
+.js .m-bars i{transform:scaleX(0)}
+.no-motion .m-bars i{transform:scaleX(var(--v))!important}
+@media (prefers-reduced-motion:reduce){.js .m-bars i{transform:scaleX(var(--v))}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .m-bars i.b1,:root:not([data-theme="light"]) .sw.b1{background:var(--accent)}:root:not([data-theme="light"]) .finding{border-color:var(--accent)}}
+@media (max-width:640px){.metric{grid-template-columns:1fr auto;gap:6px 12px}.metric .m-bars{grid-column:1 / -1;grid-row:2}}
 </style>
 </head>
 <body>
@@ -230,7 +274,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <nav class="wrap nav" aria-label="Main">
     <a href="#top" class="brand">Sri Sai Hemanth Bollepalli</a>
     <div class="links">
-      <a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#work">Projects</a><a href="#skills">Technology</a><a href="#education">Education</a><a href="#contact">Contact</a>
+      <a href="#research">Research</a><a href="#publications">Publications</a><a href="#work">Projects</a><a href="#skills">Technology</a><a href="#education">Education</a><a href="#contact">Contact</a>
     </div>
     <a href="mailto:sshemanthofficial@gmail.com" class="nav-cta">Get in touch</a>
   </nav>
@@ -241,70 +285,43 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <section class="hero-wrap">
   <div class="wrap hero">
     <div class="intro">
-      <p class="label">Medical AI · Research</p>
+      <p class="label">Medical image analysis · Sydney, Australia</p>
       <h1>Sri Sai Hemanth Bollepalli</h1>
-      <p class="role">Medical AI Researcher</p>
-      <p class="lede">I develop deep learning methods for medical image analysis and clinical signal processing, with a focus on segmentation, explainability and reliable performance in clinical settings.</p>
+      <p class="role">Medical AI researcher</p>
+      <p class="lede">My recent work segments brain metastases on post-treatment MRI, including the resection cavity left after surgery, which is the hardest region for standard models. I also work with knee MRI, dermatology images and 12-lead ECGs. In each project I look for the cases where the model fails and check whether its results hold on data it was never tuned on.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#work">View projects <svg class="i"><use href="#i-down"/></svg></a>
-        <a class="btn btn-ghost" href="mailto:sshemanthofficial@gmail.com">Contact me</a>
+        <a class="btn btn-primary" href="#publications">Read my research <svg class="i"><use href="#i-down"/></svg></a>
+        <a class="btn btn-ghost" href="mailto:sshemanthofficial@gmail.com">Email me</a>
       </div>
       <div class="profiles">
         <a href="https://github.com/sshemanth" target="_blank" rel="noopener"><svg class="logo"><use href="#l-github"/></svg>GitHub</a>
         <a href="https://linkedin.com/in/sshemanth" target="_blank" rel="noopener"><svg class="i"><use href="#i-in"/></svg>LinkedIn</a>
       </div>
+      <dl class="facts">
+        <div><dt class="num">0.238 → 0.586</dt><dd>Resection cavity F1 against a standard nnU-Net, BraTS-METS 2026</dd></div>
+        <div><dt class="num">0.880</dt><dd>Macro AUC on the hidden test set, knee MRI trained on report-derived labels</dd></div>
+        <div><dt class="num">3 hospitals</dt><dd>ECG sources in the AF study: one for training, two held out for testing</dd></div>
+      </dl>
     </div>
-
   </div>
-  </section>
-
-  <div class="wrap pub-band">
-    <aside class="paper rise" data-tilt="3" aria-label="Latest publication">
-      <div>
-        <span class="k">Latest publication · accepted</span>
-        <h2>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h2>
-        <p class="venue">BraTS-METS Challenge, MICCAI 2026</p>
-        <a class="go" href="https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html" target="_blank" rel="noopener">Read the paper <svg class="i"><use href="#i-arrow"/></svg></a>
-      </div>
-      <div class="side">
-        <dl>
-          <dt>Task</dt><dd>Multi-region tumour segmentation</dd>
-          <dt>Method</dt><dd>Five-fold nnU-Net Residual Encoder</dd>
-          <dt>Team</dt><dd>Core_Neuro_AI</dd>
-        </dl>
-      </div>
-    </aside>
-  </div>
-
-  <section class="block" id="about">
-    <div class="wrap">
-      <div class="sec-head rise"><span class="label">About</span><h2 class="sec">About me</h2></div>
-      <div class="body-grid rise">
-        <div></div>
-        <div class="about">
-          <p>I am a medical AI researcher with a background in computer science and artificial intelligence. My work covers medical image segmentation, disease classification and the analysis of clinical signals such as the electrocardiogram.</p>
-          <p>I am particularly interested in methods that clinicians can rely on: models that generalise across datasets, explain their decisions and report their own uncertainty. I am seeking a doctoral position where I can contribute to medical AI research with real clinical impact.</p>
-        </div>
-      </div>
-    </div>
   </section>
 
   <section class="block" id="research">
     <div class="wrap">
-      <div class="sec-head rise"><span class="label">Research</span><h2 class="sec">Research interests</h2></div>
+      <div class="sec-head rise"><span class="label">Research</span><h2 class="sec">What I work on</h2></div>
       <div class="body-grid rise">
         <div></div>
         <div class="focus-wrap">
           <div class="areas stagger">
-            <div><h3>Medical image segmentation</h3><p>Deep learning for detecting and delineating lesions and anatomy in volumetric scans.</p></div>
-            <div><h3>Reliability and uncertainty</h3><p>Statistical guarantees and calibrated confidence for clinical model outputs.</p></div>
-            <div><h3>Explainable AI</h3><p>Making model decisions on images and physiological signals interpretable to clinicians.</p></div>
-            <div><h3>Learning from clinical data</h3><p>Weak supervision from radiology reports and validation on external datasets.</p></div>
+            <div><h3>What segmentation models miss</h3><p>Small metastases and resection cavities are where brain tumour models lose the most accuracy. My BraTS-METS work weights these regions in the loss, samples cavity cases more often and reports results lesion by lesion as well as by Dice.</p></div>
+            <div><h3>Results that hold on new data</h3><p>I test on data the model never saw while it was tuned: hidden challenge test sets for knee MRI and skin lesions, and ECGs from two other hospitals for atrial fibrillation. In the skin lesion work, the models with the best cross-validation scores did worse on the hidden test.</p></div>
+            <div><h3>What a model relies on</h3><p>In the ECG project I measure whether an AF detector uses atrial activity or only irregular beat timing. On knee MRI, the attention maps showed the model reading the MCL mostly from sagittal images, while radiologists read it on coronal images.</p></div>
+            <div><h3>Labels from radiology reports</h3><p>Expert image labels are scarce, but reports exist for almost every scan. On knee MRI, averaging three report readers gave better labels than any one of them, and those labels raised the hidden-test AUC more than a larger image model did.</p></div>
           </div>
           <article class="focus" data-tilt="2">
-            <span class="label">Current project · 2026</span>
-            <h3>Lesion-level statistical guarantees for medical image segmentation</h3>
-            <p>Segmentation models are usually judged by average scores, while clinical decisions are made lesion by lesion. This project applies conformal prediction to post-treatment brain metastasis segmentation to provide per-lesion guarantees on detection and missed findings.</p>
+            <span class="label">Now working on</span>
+            <h3>Lesion-level guarantees for brain metastasis segmentation</h3>
+            <p>Segmentation models are scored by average overlap, while treatment decisions are made one lesion at a time. I am applying conformal prediction to post-treatment brain metastasis MRI from BraTS-METS 2026, to give per-lesion statistical guarantees on what the model detects and what it may miss.</p>
           </article>
         </div>
       </div>
@@ -315,15 +332,37 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="wrap">
       <div class="sec-head rise"><span class="label">Publications</span><h2 class="sec">Publications</h2></div>
       <ul class="work stagger">
-        <li>
+        <li class="paper-entry">
           <span class="yr num">2026</span>
           <div>
             <h3>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h3>
-            <p class="meta">S. S. H. Bollepalli · BraTS-METS Challenge, MICCAI 2026. Five-fold residual encoder nnU-Net for segmenting multiple tumour regions on multi-sequence MRI.</p>
+            <p class="cite"><strong>S. S. H. Bollepalli</strong> · BraTS-METS Challenge, MICCAI 2026</p>
+            <figure class="fig">
+              <img src="assets/brats-framework.jpg" alt="Framework diagram: four MRI sequences go through preprocessing and a residual encoder U-Net trained with a region-aware loss over five folds; at inference the folds are averaged, region-specific thresholds are applied and rule-based post-processing produces the final segmentation" width="1600" height="893" loading="lazy">
+              <figcaption>Training uses a region-weighted Tversky and BCE loss over five folds. Inference averages the folds, applies a threshold per region and enforces the BraTS label hierarchy.</figcaption>
+            </figure>
+            <p class="meta">The model segments four regions on multi-sequence MRI: whole tumour, tumour core, enhancing tumour and resection cavity. Cavities are rare and irregular, so each region gets its own loss weight and missed cavity voxels cost more than false ones. Results on the official BraTS 2026 validation platform:</p>
+            <div class="m-chart">
+              <div class="m-legend"><span><i class="sw b0"></i>Standard nnU-Net</span><span><i class="sw b1"></i>This work</span></div>
+              <div class="metric"><span class="m-label">Resection cavity, instance F1</span><div class="m-bars"><i class="b0" style="--v:.238"></i><i class="b1" style="--v:.586"></i></div><span class="m-val num">0.238 → 0.586</span></div>
+              <div class="metric"><span class="m-label">Resection cavity, Dice</span><div class="m-bars"><i class="b0" style="--v:.459"></i><i class="b1" style="--v:.578"></i></div><span class="m-val num">0.459 → 0.578</span></div>
+              <div class="metric"><span class="m-label">Tumour core, Dice</span><div class="m-bars"><i class="b0" style="--v:.659"></i><i class="b1" style="--v:.713"></i></div><span class="m-val num">0.659 → 0.713</span></div>
+              <div class="metric"><span class="m-label">Enhancing tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.656"></i><i class="b1" style="--v:.698"></i></div><span class="m-val num">0.656 → 0.698</span></div>
+              <div class="metric"><span class="m-label">Whole tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.636"></i><i class="b1" style="--v:.663"></i></div><span class="m-val num">0.636 → 0.663</span></div>
+            </div>
+            <p class="note">The 95th percentile Hausdorff distance for the resection cavity fell from 137.6 mm to 88.1 mm. Lesions smaller than 27 mm³ did not improve, so small-lesion detection is still open.</p>
             <div class="gos">
               <a class="go" href="https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html" target="_blank" rel="noopener">Paper <svg class="i"><use href="#i-arrow"/></svg></a>
               <a class="go" href="https://github.com/sshemanth/brain-tumor-segmentation" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a>
+              <button class="go bib" type="button" data-bib="bib-brats">BibTeX</button>
             </div>
+            <pre class="bibtex" id="bib-brats" hidden>@inproceedings{bollepalli2026regionaware,
+  title     = {Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation},
+  author    = {Bollepalli, Sri Sai Hemanth},
+  booktitle = {BraTS-METS Challenge, MICCAI 2026},
+  year      = {2026},
+  url       = {https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html}
+}</pre>
           </div>
         </li>
       </ul>
@@ -332,38 +371,80 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
   <section class="block" id="work">
     <div class="wrap">
-      <div class="sec-head rise"><span class="label">Projects</span><h2 class="sec">Projects</h2></div>
+      <div class="sec-head rise"><span class="label">Projects</span><h2 class="sec">Research projects</h2></div>
       <ul class="work stagger">
         <li>
           <span class="yr num">2026</span>
           <div>
-            <h3>Robust Tumour Segmentation and Small-Lesion Detection with CNN and Transformer Ensembles</h3>
-            <p class="meta">Research project supervised by Associate Professor Steve Ling. Ensemble of a residual encoder nnU-Net and the Primus transformer with threshold tuning to improve detection of small lesions.</p>
+            <h3>Finding resection cavities with a CNN and transformer ensemble</h3>
+            <p class="cite">Supervised by Associate Professor Steve Ling</p>
+            <p class="q">Can a transformer and cavity-focused sampling recover the cavities the challenge model missed?</p>
+            <p class="meta">I trained Primus V3-S, a transformer-based 3D segmentation model, with the same region-aware loss, drew cavity cases twice as often during training, and averaged its probabilities with the residual encoder U-Net.</p>
+            <div class="m-chart">
+              <p class="m-title">Resection cavity Dice, fold 0 (260 held-out cases)</p>
+              <div class="metric single"><span class="m-label">Standard nnU-Net</span><div class="m-bars"><i class="b0" style="--v:.184"></i></div><span class="m-val num">0.184</span></div>
+              <div class="metric single"><span class="m-label">Residual encoder U-Net</span><div class="m-bars"><i class="b0" style="--v:.428"></i></div><span class="m-val num">0.428</span></div>
+              <div class="metric single"><span class="m-label">Primus + cavity sampling</span><div class="m-bars"><i class="b1" style="--v:.495"></i></div><span class="m-val num">0.495</span></div>
+              <p class="m-title">Cavity detection, lesion-level F1</p>
+              <div class="metric single"><span class="m-label">Residual encoder U-Net</span><div class="m-bars"><i class="b0" style="--v:.741"></i></div><span class="m-val num">0.741 · 30 of 45 found</span></div>
+              <div class="metric single"><span class="m-label">Ensemble</span><div class="m-bars"><i class="b1" style="--v:.800"></i></div><span class="m-val num">0.800 · 34 of 45 found</span></div>
+            </div>
+            <div class="finding"><span class="label">Finding</span><p>Medium cavities, between 100 and 1,000 mm³, cause most of the misses. Ten of the fourteen missed cavities had a predicted probability below 0.1, so no threshold recovers them. In nine of thirteen missed cases an earlier scan of the same patient already shows a cavity, which suggests using prior scans as a guide.</p></div>
+            <p class="note">Results come from one cross-validation fold and are not comparable with the official validation scores above.</p>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/brats-mets-primus-rc" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
         <li>
           <span class="yr num">2026</span>
           <div>
-            <h3>Explainable Atrial Fibrillation Detection from 12-Lead Electrocardiograms</h3>
-            <p class="meta">Atrial fibrillation classifier trained on PTB-XL and externally validated on Chapman-Shaoxing, with explanation methods that show which signal features drive each prediction.</p>
-            <div class="gos"><a class="go" href="https://github.com/sshemanth/af-ecg-xai" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
-          </div>
-        </li>
-        <li>
-          <span class="yr num">2026</span>
-          <div>
-            <h3>Multi-Label Knee MRI Abnormality Detection Using Report-Derived Weak Supervision</h3>
-            <p class="meta">Detection of 12 knee abnormalities on MRI without expert image labels. Soft labels were derived from multilingual radiology reports using a rule-based labeller, MedGemma and Qwen, and used to train a 2.5D ConvNeXt with per-finding attention. Achieved 0.880 macro AUC on the hidden test set.</p>
+            <h3>Knee MRI abnormality detection from report-derived labels</h3>
+            <p class="cite">Two-person team · RSNA 2026 Knee Abnormality Detection</p>
+            <p class="q">Can twelve knee abnormalities be detected on MRI without expert image labels?</p>
+            <p class="meta">Three readers score each radiology report, written in one of six languages: a rule-based labeller, MedGemma-4B, and a 27B Qwen model running locally on a laptop. Their averaged scores train a 2.5D ConvNeXt with one attention map per finding.</p>
+            <div class="m-chart">
+              <p class="m-title">Report readers, macro AUC against 58 expert-labelled studies</p>
+              <div class="metric single"><span class="m-label">Rule-based</span><div class="m-bars"><i class="b0" style="--v:.683"></i></div><span class="m-val num">0.683</span></div>
+              <div class="metric single"><span class="m-label">MedGemma-4B</span><div class="m-bars"><i class="b0" style="--v:.768"></i></div><span class="m-val num">0.768</span></div>
+              <div class="metric single"><span class="m-label">Qwen 27B</span><div class="m-bars"><i class="b0" style="--v:.858"></i></div><span class="m-val num">0.858</span></div>
+              <div class="metric single"><span class="m-label">Average of three</span><div class="m-bars"><i class="b1" style="--v:.870"></i></div><span class="m-val num">0.870</span></div>
+              <p class="m-title">Image model, macro AUC on the hidden test set</p>
+              <div class="metric single"><span class="m-label">Two-reader labels</span><div class="m-bars"><i class="b0" style="--v:.842"></i></div><span class="m-val num">0.842</span></div>
+              <div class="metric single"><span class="m-label">Three-reader labels</span><div class="m-bars"><i class="b0" style="--v:.865"></i></div><span class="m-val num">0.865</span></div>
+              <div class="metric single"><span class="m-label">Same, at 384 px</span><div class="m-bars"><i class="b1" style="--v:.880"></i></div><span class="m-val num">0.880</span></div>
+            </div>
+            <div class="finding"><span class="label">Finding</span><p>Label quality set the ceiling. Adding the third report reader raised the hidden-test AUC from 0.842 to 0.865, a larger gain than any change to the image model. A bigger ConvNeXt scored lower on the expert-labelled studies.</p></div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/knee-mri-weak-supervision" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
         <li>
           <span class="yr num">2026</span>
           <div>
-            <h3>Rare-Class-Aware Multimodal Skin Lesion Diagnosis</h3>
-            <p class="meta">Multi-label classification of 11 skin lesion categories for the MILK10k / ISIC challenge, fusing dual-view dermatology images with patient and acquisition metadata. Handles severe class imbalance through rare-class-aware training and model ensembling.</p>
+            <h3>Multimodal skin lesion diagnosis with rare classes</h3>
+            <p class="cite">MILK10k / ISIC challenge</p>
+            <p class="q">How well can clinical and dermoscopic images, together with patient metadata, classify eleven lesion types when some types are very rare?</p>
+            <p class="meta">Each image view and the metadata have their own encoder, joined in a shared multi-label head. Rare classes are oversampled in the training manifests and weighted in the loss.</p>
+            <div class="m-chart">
+              <p class="m-title">Official challenge score on the hidden test set</p>
+              <div class="metric single"><span class="m-label">EfficientNet-B0</span><div class="m-bars"><i class="b0" style="--v:.464"></i></div><span class="m-val num">0.464</span></div>
+              <div class="metric single"><span class="m-label">ConvNeXt-Base, rare-class oversampling</span><div class="m-bars"><i class="b0" style="--v:.500"></i></div><span class="m-val num">0.500</span></div>
+              <div class="metric single"><span class="m-label">70 / 30 ensemble of both</span><div class="m-bars"><i class="b1" style="--v:.515"></i></div><span class="m-val num">0.515</span></div>
+            </div>
+            <div class="finding"><span class="label">Finding</span><p>Swin backbones and pretraining on external ISIC data raised cross-validation scores but scored lower on the hidden test. The best official result came from the simpler ensemble trained only on MILK10k.</p></div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/multimodal-lesion-diagnosis" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
+          </div>
+        </li>
+        <li>
+          <span class="yr num">2026</span>
+          <div>
+            <h3>What atrial fibrillation detectors rely on in 12-lead ECGs</h3>
+            <p class="cite">Ongoing</p>
+            <p class="q">Does a deep AF detector use atrial signs such as missing P-waves and fibrillatory waves, or only irregular beat timing?</p>
+            <p class="meta">A 1D ResNet trained on PTB-XL is tested without retraining on ECGs from Chapman-Shaoxing and Georgia, and compared with a model that sees only RR intervals. Six attribution methods, occlusion and counterfactual edits measure which parts of each beat the model needs. AF with a regular ventricular rate and paced rhythms are analysed on their own, because the timing cue is weak there.</p>
+            <dl class="mini-facts">
+              <div><dt class="num">21,742</dt><dd>PTB-XL ECGs for training and internal testing, 7.0% AF</dd></div>
+              <div><dt class="num">9,794</dt><dd>Chapman-Shaoxing ECGs, external test only, 18.2% AF</dd></div>
+            </dl>
+            <p class="note">Experiments are running. Results will be added here when they are complete.</p>
           </div>
         </li>
       </ul>
@@ -446,7 +527,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="wrap rise">
       <span class="label">Contact</span>
       <h2>Let's connect</h2>
-      <p>I welcome conversations about research collaboration, doctoral opportunities and medical AI.</p>
+      <p>I am looking for a PhD position in medical image analysis. If this work is close to what your group does, I would be glad to talk.</p>
       <a class="mail" href="mailto:sshemanthofficial@gmail.com">sshemanthofficial@gmail.com</a>
       <div class="profiles">
         <a href="https://github.com/sshemanth" target="_blank" rel="noopener"><svg class="logo"><use href="#l-github"/></svg>GitHub</a>
@@ -462,5 +543,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <script type="module" src="js/scene.js"></script>
 <script type="module" src="js/animations.js"></script>
+<script>
+  // BibTeX: first click shows the entry and copies it, later clicks copy again.
+  document.querySelectorAll("[data-bib]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var pre = document.getElementById(btn.dataset.bib);
+      pre.hidden = false;
+      if (navigator.clipboard) navigator.clipboard.writeText(pre.textContent).then(function () {
+        btn.textContent = "BibTeX copied";
+        setTimeout(function () { btn.textContent = "BibTeX"; }, 1800);
+      }).catch(function () {});
+    });
+  });
+</script>
 </body>
 </html>
