@@ -19,7 +19,7 @@ if (host && webglAvailable()) start();
 else document.documentElement.classList.add("no-webgl");
 
 function start() {
-  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const dark = false; // the site always uses its light theme
   const bg = new THREE.Color(dark ? "#121417" : "#F7F7F4");
   const rim = new THREE.Color(dark ? "#9CC3EA" : "#6F9FCF");
   const core = new THREE.Color(dark ? "#E9F2FB" : "#FFFFFF");
