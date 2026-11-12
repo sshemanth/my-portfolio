@@ -1,5 +1,5 @@
-// Page motion built on Motion (motion.dev): hero entrance, scroll reveals, scroll-linked hero depth
-// and a gentle 3D tilt on the main cards. Everything is skipped when the visitor prefers reduced motion.
+// Page motion built on Motion (motion.dev): hero entrance, scroll reveals, result bars that grow
+// into place, scroll-linked hero depth and a gentle 3D tilt on the main cards. Everything is skipped when the visitor prefers reduced motion.
 import { animate, scroll, inView, stagger } from "motion";
 
 const root = document.documentElement;
@@ -14,6 +14,7 @@ if (reduceMotion) {
 } else {
   heroEntrance();
   revealOnScroll();
+  growBars();
   heroDepth();
   progressBar();
   tiltCards();
@@ -53,6 +54,23 @@ function revealOnScroll() {
       animate(Array.from(target.children), { opacity: [0, 1], y: [28, 0] }, { duration: 0.7, ease, delay: stagger(0.07) });
     },
     { margin: "0px 0px -10% 0px" }
+  );
+}
+
+function growBars() {
+  // Each result chart fills its bars from zero to the measured value when it scrolls into view.
+  inView(
+    ".m-chart",
+    ({ target }) => {
+      const bars = Array.from(target.querySelectorAll(".m-bars i"));
+      bars.forEach((bar, i) => {
+        const v = parseFloat(getComputedStyle(bar).getPropertyValue("--v")) || 0;
+        animate(bar, { transform: ["scaleX(0)", `scaleX(${v})`] }, { duration: 1.1, ease, delay: 0.15 + i * 0.06 }).then(
+          () => (bar.style.transform = `scaleX(${v})`)
+        );
+      });
+    },
+    { margin: "0px 0px -15% 0px" }
   );
 }
 
