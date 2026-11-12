@@ -15,6 +15,7 @@ if (reduceMotion) {
   heroEntrance();
   revealOnScroll();
   growBars();
+  fillPath();
   heroDepth();
   progressBar();
   tiltCards();
@@ -72,6 +73,17 @@ function growBars() {
     },
     { margin: "0px 0px -15% 0px" }
   );
+}
+
+function fillPath() {
+  // The line linking the three research steps fills as the reader moves through them.
+  const path = document.querySelector(".path");
+  const fill = path?.querySelector(".path-fill");
+  if (!fill) return;
+  scroll(animate(fill, { transform: ["scaleY(0)", "scaleY(1)"] }, { ease: "linear" }), {
+    target: path,
+    offset: ["start 65%", "end 65%"],
+  });
 }
 
 function heroDepth() {
