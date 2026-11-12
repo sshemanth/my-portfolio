@@ -4,9 +4,10 @@ Personal research portfolio of Sri Sai Hemanth Bollepalli, medical AI researcher
 
 The site covers:
 
-- Research themes and current work on lesion-level guarantees for brain metastasis segmentation
-- Publications, with the MICCAI 2026 BraTS-METS paper *Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation*, its framework figure, results and BibTeX
-- Research projects on resection cavity detection, knee MRI from report-derived labels, multimodal skin lesion diagnosis and atrial fibrillation detection from ECGs, each with its question, method, measured results and main finding
+- A research path in three steps: the MICCAI 2026 BraTS-METS paper *Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation*, the follow-up project on missed resection cavities, and current work on lesion-level guarantees, each with what it left open for the next
+- Publications with citation links and BibTeX
+- Other research projects on knee MRI from report-derived labels, multimodal skin lesion diagnosis and atrial fibrillation detection from ECGs, each with its question, method, measured results and main finding
+- The themes that connect the projects
 - Technology stack, education and contact details
 
 ## Structure
