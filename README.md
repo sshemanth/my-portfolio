@@ -13,12 +13,12 @@ The site covers:
 
 ```
 index.html         Single-page site (HTML and CSS, no build step)
-js/scene.js        Interactive 3D neural network in the hero (Three.js)
+js/scene.js        Full-page 3D neural network background (Three.js)
 js/animations.js   Page animations: entrance, scroll reveals, card tilt (Motion)
-network-bg.jpg     Fallback hero image for browsers without WebGL
+network-bg.jpg     Fallback background for browsers without WebGL
 ```
 
-The hero renders a layered neural network in WebGL with signals travelling between layers. It follows the pointer, responds to scrolling and pauses when it is off screen. Visitors who turn on reduced motion get a still frame and no animations.
+A deep neural network of translucent glass nodes sits behind the whole page in WebGL. Signals flow from layer to layer, and scrolling moves the camera forward through the network. It follows the pointer and pauses when the tab is hidden. Visitors who turn on reduced motion get a still frame and no animations.
 
 [Three.js](https://threejs.org) and [Motion](https://motion.dev) load from the jsDelivr CDN through an import map, so there is still no build step. Fonts load from Google Fonts (Inter, with Georgia for headings). Technology logos are inline SVGs from [Simple Icons](https://simpleicons.org).
 
