@@ -158,9 +158,6 @@ h2.sec{font:400 clamp(34px,4.4vw,48px)/1.06 var(--serif);letter-spacing:-.02em}
 .work .yr{font-size:14px;font-weight:500;color:var(--muted)}
 .work h3{font:400 23px/1.25 var(--serif);max-width:44ch;letter-spacing:-.005em}
 .work .meta{color:var(--text-2);font-size:15px;margin-top:8px;max-width:62ch}
-.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--text-2);padding:5px 10px;border-radius:6px;background:color-mix(in srgb,var(--sunken) 80%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.chip svg.logo{width:14px;height:14px}
 .kind{font-size:13px;font-weight:500;color:var(--text-2);padding:6px 10px;border:1px solid var(--line);border-radius:6px;white-space:nowrap;background:color-mix(in srgb,var(--surface) 75%,transparent)}
 .kind.ok{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
 .gos{display:flex;gap:20px;margin-top:14px}
@@ -308,10 +305,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
             <span class="label">Current project · 2026</span>
             <h3>Lesion-level statistical guarantees for medical image segmentation</h3>
             <p>Segmentation models are usually judged by average scores, while clinical decisions are made lesion by lesion. This project applies conformal prediction to post-treatment brain metastasis segmentation to provide per-lesion guarantees on detection and missed findings.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-python"/></svg>Python</span>
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-            </div>
           </article>
         </div>
       </div>
@@ -327,13 +320,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h3>
             <p class="meta">S. S. H. Bollepalli · BraTS-METS Challenge, MICCAI 2026. Five-fold residual encoder nnU-Net for segmenting multiple tumour regions on multi-sequence MRI.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-python"/></svg>Python</span>
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-              <span class="chip"><svg class="logo"><use href="#l-nvidia"/></svg>CUDA</span>
-              <span class="chip"><svg class="logo"><use href="#l-docker"/></svg>Docker</span>
-              <span class="chip"><svg class="logo"><use href="#l-pandas"/></svg>pandas</span>
-            </div>
             <div class="gos">
               <a class="go" href="https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html" target="_blank" rel="noopener">Paper <svg class="i"><use href="#i-arrow"/></svg></a>
               <a class="go" href="https://github.com/sshemanth/brain-tumor-segmentation" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a>
@@ -353,12 +339,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Robust Tumour Segmentation and Small-Lesion Detection with CNN and Transformer Ensembles</h3>
             <p class="meta">Research project supervised by Associate Professor Steve Ling. Ensemble of a residual encoder nnU-Net and the Primus transformer with threshold tuning to improve detection of small lesions.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-              <span class="chip"><svg class="logo"><use href="#l-numpy"/></svg>NumPy</span>
-              <span class="chip"><svg class="logo"><use href="#l-scipy"/></svg>SciPy</span>
-              <span class="chip"><svg class="logo"><use href="#l-docker"/></svg>Docker</span>
-            </div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/brats-mets-primus-rc" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
@@ -367,14 +347,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Explainable Atrial Fibrillation Detection from 12-Lead Electrocardiograms</h3>
             <p class="meta">Atrial fibrillation classifier trained on PTB-XL and externally validated on Chapman-Shaoxing, with explanation methods that show which signal features drive each prediction.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-python"/></svg>Python</span>
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-              <span class="chip"><svg class="logo"><use href="#l-scikitlearn"/></svg>scikit-learn</span>
-              <span class="chip"><svg class="logo"><use href="#l-scipy"/></svg>SciPy</span>
-              <span class="chip"><svg class="logo"><use href="#l-pandas"/></svg>pandas</span>
-              <span class="chip"><svg class="logo"><use href="#l-apple"/></svg>Apple Silicon (MPS)</span>
-            </div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/af-ecg-xai" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
@@ -383,13 +355,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Multi-Label Knee MRI Abnormality Detection Using Report-Derived Weak Supervision</h3>
             <p class="meta">Detection of 12 knee abnormalities on MRI without expert image labels. Soft labels were derived from multilingual radiology reports using a rule-based labeller, MedGemma and Qwen, and used to train a 2.5D ConvNeXt with per-finding attention. Achieved 0.880 macro AUC on the hidden test set.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-python"/></svg>Python</span>
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-              <span class="chip"><svg class="logo"><use href="#l-huggingface"/></svg>Hugging Face Transformers</span>
-              <span class="chip"><svg class="logo"><use href="#l-scikitlearn"/></svg>scikit-learn</span>
-              <span class="chip"><svg class="logo"><use href="#l-kaggle"/></svg>Kaggle</span>
-            </div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/knee-mri-weak-supervision" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
@@ -398,14 +363,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Rare-Class-Aware Multimodal Skin Lesion Diagnosis</h3>
             <p class="meta">Multi-label classification of 11 skin lesion categories for the MILK10k / ISIC challenge, fusing dual-view dermatology images with patient and acquisition metadata. Handles severe class imbalance through rare-class-aware training and model ensembling.</p>
-            <div class="stack">
-              <span class="chip"><svg class="logo"><use href="#l-python"/></svg>Python</span>
-              <span class="chip"><svg class="logo"><use href="#l-pytorch"/></svg>PyTorch</span>
-              <span class="chip"><svg class="logo"><use href="#l-amazonwebservices"/></svg>AWS SageMaker</span>
-              <span class="chip"><svg class="logo"><use href="#l-docker"/></svg>Docker</span>
-              <span class="chip"><svg class="logo"><use href="#l-weightsandbiases"/></svg>Weights &amp; Biases</span>
-              <span class="chip"><svg class="logo"><use href="#l-scikitlearn"/></svg>scikit-learn</span>
-            </div>
             <div class="gos"><a class="go" href="https://github.com/sshemanth/multimodal-lesion-diagnosis" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
           </div>
         </li>
