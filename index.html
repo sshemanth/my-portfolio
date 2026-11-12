@@ -233,6 +233,44 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 @media (prefers-reduced-motion:reduce){.js .m-bars i{transform:scaleX(var(--v))}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .m-bars i.b1,:root:not([data-theme="light"]) .sw.b1{background:var(--accent)}:root:not([data-theme="light"]) .finding{border-color:var(--accent)}}
 @media (max-width:640px){.metric{grid-template-columns:1fr auto;gap:6px 12px}.metric .m-bars{grid-column:1 / -1;grid-row:2}}
+
+/* research path: three connected steps */
+.path-intro{font:400 21px/1.5 var(--serif);color:var(--text);max-width:52ch;margin-bottom:56px;text-shadow:0 0 18px var(--bg)}
+.path{position:relative}
+.path::before,.path-fill{content:"";position:absolute;left:207px;top:10px;bottom:48px;width:2px;border-radius:1px}
+.path::before{background:var(--line)}
+.path-fill{background:var(--navy);transform-origin:50% 0;transform:scaleY(1)}
+.js .path-fill{transform:scaleY(0)}
+.no-motion .path-fill{transform:scaleY(1)!important}
+@media (prefers-reduced-motion:reduce){.js .path-fill{transform:scaleY(1)}}
+.steps{list-style:none}
+.step{display:grid;grid-template-columns:200px 1fr;gap:40px;padding-bottom:72px;position:relative}
+.step:last-child{padding-bottom:8px}
+.step-mark{display:flex;flex-direction:column;gap:6px;padding-right:24px;text-align:right}
+.step-mark .dot{position:absolute;left:200px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--navy);box-shadow:0 0 0 6px color-mix(in srgb,var(--bg) 80%,transparent)}
+.step.now .dot{background:var(--navy)}
+.step-no{font:400 34px/1 var(--serif);color:var(--navy)}
+.step-kind{font-size:13px;line-height:1.5;color:var(--muted)}
+.step-body{padding-left:24px;min-width:0}
+.step-body h3{font:400 26px/1.25 var(--serif);letter-spacing:-.01em;max-width:34ch}
+.step-body .meta{color:var(--text-2);font-size:16px;margin-top:12px;max-width:66ch;text-shadow:0 0 18px var(--bg),0 0 2px var(--bg)}
+.open{margin-top:24px;max-width:66ch;padding:16px 18px;border-radius:12px;background:color-mix(in srgb,var(--surface) 70%,transparent);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.open p{font:400 17px/1.55 var(--serif);color:var(--text);margin-top:6px}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-size:14px;font-weight:500;color:var(--text-2)}
+.live{width:8px;height:8px;border-radius:50%;background:var(--navy);position:relative}
+.live::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--navy);opacity:0;animation:live 2.4s var(--ease) infinite}
+@keyframes live{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.8);opacity:0}}
+@media (prefers-reduced-motion:reduce){.live::after{animation:none}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .path-fill,:root:not([data-theme="light"]) .step.now .dot,:root:not([data-theme="light"]) .live{background:var(--accent)}:root:not([data-theme="light"]) .step-mark .dot,:root:not([data-theme="light"]) .live::after{border-color:var(--accent)}:root:not([data-theme="light"]) .step-no{color:var(--accent)}}
+@media (max-width:900px){
+  .path::before,.path-fill{left:7px}
+  .step{grid-template-columns:1fr;gap:12px;padding-left:36px;padding-bottom:56px}
+  .step-mark{text-align:left;padding-right:0;flex-direction:row;align-items:baseline;gap:12px}
+  .step-mark .dot{left:0}
+  .step-kind br{display:none}
+  .step-body{padding-left:0}
+  .path-intro{margin-bottom:40px}
+}
 </style>
 </head>
 <body>
@@ -274,7 +312,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <nav class="wrap nav" aria-label="Main">
     <a href="#top" class="brand">Sri Sai Hemanth Bollepalli</a>
     <div class="links">
-      <a href="#research">Research</a><a href="#publications">Publications</a><a href="#work">Projects</a><a href="#skills">Technology</a><a href="#education">Education</a><a href="#contact">Contact</a>
+      <a href="#path">Research</a><a href="#publications">Publications</a><a href="#work">Projects</a><a href="#skills">Technology</a><a href="#education">Education</a><a href="#contact">Contact</a>
     </div>
     <a href="mailto:sshemanthofficial@gmail.com" class="nav-cta">Get in touch</a>
   </nav>
@@ -290,7 +328,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <p class="role">Medical AI researcher</p>
       <p class="lede">My recent work segments brain metastases on post-treatment MRI, including the resection cavity left after surgery, which is the hardest region for standard models. I also work with knee MRI, dermatology images and 12-lead ECGs. In each project I look for the cases where the model fails and check whether its results hold on data it was never tuned on.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#publications">Read my research <svg class="i"><use href="#i-down"/></svg></a>
+        <a class="btn btn-primary" href="#path">Read my research <svg class="i"><use href="#i-down"/></svg></a>
         <a class="btn btn-ghost" href="mailto:sshemanthofficial@gmail.com">Email me</a>
       </div>
       <div class="profiles">
@@ -306,24 +344,81 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
   </section>
 
-  <section class="block" id="research">
+
+
+  <section class="block" id="path">
     <div class="wrap">
-      <div class="sec-head rise"><span class="label">Research</span><h2 class="sec">What I work on</h2></div>
+      <div class="sec-head rise"><span class="label">Research path</span><h2 class="sec">From a challenge entry to lesion-level guarantees</h2></div>
       <div class="body-grid rise">
         <div></div>
-        <div class="focus-wrap">
-          <div class="areas stagger">
-            <div><h3>What segmentation models miss</h3><p>Small metastases and resection cavities are where brain tumour models lose the most accuracy. My BraTS-METS work weights these regions in the loss, samples cavity cases more often and reports results lesion by lesion as well as by Dice.</p></div>
-            <div><h3>Results that hold on new data</h3><p>I test on data the model never saw while it was tuned: hidden challenge test sets for knee MRI and skin lesions, and ECGs from two other hospitals for atrial fibrillation. In the skin lesion work, the models with the best cross-validation scores did worse on the hidden test.</p></div>
-            <div><h3>What a model relies on</h3><p>In the ECG project I measure whether an AF detector uses atrial activity or only irregular beat timing. On knee MRI, the attention maps showed the model reading the MCL mostly from sagittal images, while radiologists read it on coronal images.</p></div>
-            <div><h3>Labels from radiology reports</h3><p>Expert image labels are scarce, but reports exist for almost every scan. On knee MRI, averaging three report readers gave better labels than any one of them, and those labels raised the hidden-test AUC more than a larger image model did.</p></div>
+        <p class="path-intro">My brain metastasis work has moved in three steps. Each one started from what the step before it could not do.</p>
+      </div>
+      <div class="path">
+        <span class="path-fill" aria-hidden="true"></span>
+        <ol class="steps">
+
+        <li class="step" id="step-1">
+          <div class="step-mark"><span class="dot" aria-hidden="true"></span><span class="step-no num">01</span><span class="step-kind">Challenge paper<br>MICCAI 2026</span></div>
+          <div class="step-body">
+            <h3>Region-aware segmentation of post-treatment brain metastases</h3>
+            <p class="meta">For the BraTS-METS 2026 challenge I built a five-fold residual encoder nnU-Net that segments four regions on multi-sequence MRI: whole tumour, tumour core, enhancing tumour and the resection cavity left after surgery. Cavities are rare and irregular, so a region-weighted Tversky and BCE loss makes missed cavity voxels cost more than false ones, and each region gets its own threshold at inference.</p>
+            <figure class="fig">
+              <img src="assets/brats-framework.jpg" alt="Framework diagram: four MRI sequences go through preprocessing and a residual encoder U-Net trained with a region-aware loss over five folds; at inference the folds are averaged, region-specific thresholds are applied and rule-based post-processing produces the final segmentation" width="1600" height="893" loading="lazy">
+              <figcaption>Training uses the region-weighted loss over five folds. Inference averages the folds, applies a threshold per region and enforces the BraTS label hierarchy.</figcaption>
+            </figure>
+            <div class="m-chart">
+              <p class="m-title">Official BraTS 2026 validation platform</p>
+              <div class="m-legend"><span><i class="sw b0"></i>Standard nnU-Net</span><span><i class="sw b1"></i>This work</span></div>
+              <div class="metric"><span class="m-label">Resection cavity, instance F1</span><div class="m-bars"><i class="b0" style="--v:.238"></i><i class="b1" style="--v:.586"></i></div><span class="m-val num">0.238 → 0.586</span></div>
+              <div class="metric"><span class="m-label">Resection cavity, Dice</span><div class="m-bars"><i class="b0" style="--v:.459"></i><i class="b1" style="--v:.578"></i></div><span class="m-val num">0.459 → 0.578</span></div>
+              <div class="metric"><span class="m-label">Tumour core, Dice</span><div class="m-bars"><i class="b0" style="--v:.659"></i><i class="b1" style="--v:.713"></i></div><span class="m-val num">0.659 → 0.713</span></div>
+              <div class="metric"><span class="m-label">Enhancing tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.656"></i><i class="b1" style="--v:.698"></i></div><span class="m-val num">0.656 → 0.698</span></div>
+              <div class="metric"><span class="m-label">Whole tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.636"></i><i class="b1" style="--v:.663"></i></div><span class="m-val num">0.636 → 0.663</span></div>
+            </div>
+            <div class="open">
+              <span class="label">What it left open</span>
+              <p>The cavity was still the weakest of the four regions, and lesions smaller than 27 mm³ did not improve at all.</p>
+            </div>
+            <div class="gos">
+              <a class="go" href="https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html" target="_blank" rel="noopener">Paper <svg class="i"><use href="#i-arrow"/></svg></a>
+              <a class="go" href="https://github.com/sshemanth/brain-tumor-segmentation" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a>
+            </div>
           </div>
-          <article class="focus" data-tilt="2">
-            <span class="label">Now working on</span>
+        </li>
+
+        <li class="step" id="step-2">
+          <div class="step-mark"><span class="dot" aria-hidden="true"></span><span class="step-no num">02</span><span class="step-kind">Research project<br>Supervised by Associate Professor Steve Ling</span></div>
+          <div class="step-body">
+            <h3>Recovering the cavities the challenge model missed</h3>
+            <p class="meta">I made the weakest region the whole project. A Primus V3-S transformer was trained with the same loss, with cavity cases drawn twice as often and half of the forced foreground patches centred on a cavity. Its probabilities were then averaged with the challenge model, and each cavity was also scored as found or missed.</p>
+            <div class="m-chart">
+              <p class="m-title">Resection cavity Dice, one fold of 260 held-out cases</p>
+              <div class="metric single"><span class="m-label">Standard nnU-Net</span><div class="m-bars"><i class="b0" style="--v:.184"></i></div><span class="m-val num">0.184</span></div>
+              <div class="metric single"><span class="m-label">Challenge model</span><div class="m-bars"><i class="b0" style="--v:.428"></i></div><span class="m-val num">0.428</span></div>
+              <div class="metric single"><span class="m-label">Primus + cavity sampling</span><div class="m-bars"><i class="b1" style="--v:.495"></i></div><span class="m-val num">0.495</span></div>
+              <p class="m-title">Cavities found, lesion-level F1</p>
+              <div class="metric single"><span class="m-label">Challenge model</span><div class="m-bars"><i class="b0" style="--v:.741"></i></div><span class="m-val num">0.741 · 30 of 45</span></div>
+              <div class="metric single"><span class="m-label">Ensemble</span><div class="m-bars"><i class="b1" style="--v:.800"></i></div><span class="m-val num">0.800 · 34 of 45</span></div>
+            </div>
+            <p class="note">One cross-validation fold, so these numbers are not comparable with the official validation scores in step 01.</p>
+            <div class="open">
+              <span class="label">What it left open</span>
+              <p>Ten of the fourteen missed cavities had a predicted probability below 0.1, so no threshold could bring them back. Most misses were medium cavities between 100 and 1,000 mm³. The checks also showed that 147 of the 260 validation cases came from patients with another scan in training, because the original folds were not grouped by patient.</p>
+            </div>
+            <div class="gos"><a class="go" href="https://github.com/sshemanth/brats-mets-primus-rc" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
+          </div>
+        </li>
+
+        <li class="step now" id="step-3">
+          <div class="step-mark"><span class="dot" aria-hidden="true"></span><span class="step-no num">03</span><span class="step-kind">Current work</span></div>
+          <div class="step-body">
             <h3>Lesion-level guarantees for brain metastasis segmentation</h3>
-            <p>Segmentation models are scored by average overlap, while treatment decisions are made one lesion at a time. I am applying conformal prediction to post-treatment brain metastasis MRI from BraTS-METS 2026, to give per-lesion statistical guarantees on what the model detects and what it may miss.</p>
-          </article>
-        </div>
+            <p class="meta">A better model still misses some lesions, and an average Dice score does not say which ones. I am now applying conformal prediction to post-treatment brain metastasis MRI from BraTS-METS 2026, so the model can give per-lesion statistical guarantees on what it detects and what it may miss.</p>
+            <p class="meta">This work starts from scratch with newly trained models and uses only patient-grouped splits, so no patient appears in both training and testing.</p>
+            <p class="status"><span class="live" aria-hidden="true"></span>In progress</p>
+          </div>
+        </li>
+        </ol>
       </div>
     </div>
   </section>
@@ -337,23 +432,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div>
             <h3>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h3>
             <p class="cite"><strong>S. S. H. Bollepalli</strong> · BraTS-METS Challenge, MICCAI 2026</p>
-            <figure class="fig">
-              <img src="assets/brats-framework.jpg" alt="Framework diagram: four MRI sequences go through preprocessing and a residual encoder U-Net trained with a region-aware loss over five folds; at inference the folds are averaged, region-specific thresholds are applied and rule-based post-processing produces the final segmentation" width="1600" height="893" loading="lazy">
-              <figcaption>Training uses a region-weighted Tversky and BCE loss over five folds. Inference averages the folds, applies a threshold per region and enforces the BraTS label hierarchy.</figcaption>
-            </figure>
-            <p class="meta">The model segments four regions on multi-sequence MRI: whole tumour, tumour core, enhancing tumour and resection cavity. Cavities are rare and irregular, so each region gets its own loss weight and missed cavity voxels cost more than false ones. Results on the official BraTS 2026 validation platform:</p>
-            <div class="m-chart">
-              <div class="m-legend"><span><i class="sw b0"></i>Standard nnU-Net</span><span><i class="sw b1"></i>This work</span></div>
-              <div class="metric"><span class="m-label">Resection cavity, instance F1</span><div class="m-bars"><i class="b0" style="--v:.238"></i><i class="b1" style="--v:.586"></i></div><span class="m-val num">0.238 → 0.586</span></div>
-              <div class="metric"><span class="m-label">Resection cavity, Dice</span><div class="m-bars"><i class="b0" style="--v:.459"></i><i class="b1" style="--v:.578"></i></div><span class="m-val num">0.459 → 0.578</span></div>
-              <div class="metric"><span class="m-label">Tumour core, Dice</span><div class="m-bars"><i class="b0" style="--v:.659"></i><i class="b1" style="--v:.713"></i></div><span class="m-val num">0.659 → 0.713</span></div>
-              <div class="metric"><span class="m-label">Enhancing tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.656"></i><i class="b1" style="--v:.698"></i></div><span class="m-val num">0.656 → 0.698</span></div>
-              <div class="metric"><span class="m-label">Whole tumour, Dice</span><div class="m-bars"><i class="b0" style="--v:.636"></i><i class="b1" style="--v:.663"></i></div><span class="m-val num">0.636 → 0.663</span></div>
-            </div>
-            <p class="note">The 95th percentile Hausdorff distance for the resection cavity fell from 137.6 mm to 88.1 mm. Lesions smaller than 27 mm³ did not improve, so small-lesion detection is still open.</p>
             <div class="gos">
               <a class="go" href="https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html" target="_blank" rel="noopener">Paper <svg class="i"><use href="#i-arrow"/></svg></a>
               <a class="go" href="https://github.com/sshemanth/brain-tumor-segmentation" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a>
+              <a class="go" href="#step-1">Method and results <svg class="i"><use href="#i-arrow"/></svg></a>
               <button class="go bib" type="button" data-bib="bib-brats">BibTeX</button>
             </div>
             <pre class="bibtex" id="bib-brats" hidden>@inproceedings{bollepalli2026regionaware,
@@ -371,29 +453,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
   <section class="block" id="work">
     <div class="wrap">
-      <div class="sec-head rise"><span class="label">Projects</span><h2 class="sec">Research projects</h2></div>
+      <div class="sec-head rise"><span class="label">Projects</span><h2 class="sec">Other research projects</h2></div>
       <ul class="work stagger">
-        <li>
-          <span class="yr num">2026</span>
-          <div>
-            <h3>Finding resection cavities with a CNN and transformer ensemble</h3>
-            <p class="cite">Supervised by Associate Professor Steve Ling</p>
-            <p class="q">Can a transformer and cavity-focused sampling recover the cavities the challenge model missed?</p>
-            <p class="meta">I trained Primus V3-S, a transformer-based 3D segmentation model, with the same region-aware loss, drew cavity cases twice as often during training, and averaged its probabilities with the residual encoder U-Net.</p>
-            <div class="m-chart">
-              <p class="m-title">Resection cavity Dice, fold 0 (260 held-out cases)</p>
-              <div class="metric single"><span class="m-label">Standard nnU-Net</span><div class="m-bars"><i class="b0" style="--v:.184"></i></div><span class="m-val num">0.184</span></div>
-              <div class="metric single"><span class="m-label">Residual encoder U-Net</span><div class="m-bars"><i class="b0" style="--v:.428"></i></div><span class="m-val num">0.428</span></div>
-              <div class="metric single"><span class="m-label">Primus + cavity sampling</span><div class="m-bars"><i class="b1" style="--v:.495"></i></div><span class="m-val num">0.495</span></div>
-              <p class="m-title">Cavity detection, lesion-level F1</p>
-              <div class="metric single"><span class="m-label">Residual encoder U-Net</span><div class="m-bars"><i class="b0" style="--v:.741"></i></div><span class="m-val num">0.741 · 30 of 45 found</span></div>
-              <div class="metric single"><span class="m-label">Ensemble</span><div class="m-bars"><i class="b1" style="--v:.800"></i></div><span class="m-val num">0.800 · 34 of 45 found</span></div>
-            </div>
-            <div class="finding"><span class="label">Finding</span><p>Medium cavities, between 100 and 1,000 mm³, cause most of the misses. Ten of the fourteen missed cavities had a predicted probability below 0.1, so no threshold recovers them. In nine of thirteen missed cases an earlier scan of the same patient already shows a cavity, which suggests using prior scans as a guide.</p></div>
-            <p class="note">Results come from one cross-validation fold and are not comparable with the official validation scores above.</p>
-            <div class="gos"><a class="go" href="https://github.com/sshemanth/brats-mets-primus-rc" target="_blank" rel="noopener">Code <svg class="i"><use href="#i-arrow"/></svg></a></div>
-          </div>
-        </li>
         <li>
           <span class="yr num">2026</span>
           <div>
@@ -448,6 +509,23 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           </div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section class="block" id="themes">
+    <div class="wrap">
+      <div class="sec-head rise"><span class="label">Across projects</span><h2 class="sec">What connects this work</h2></div>
+      <div class="body-grid rise">
+        <div></div>
+        <div class="focus-wrap">
+          <div class="areas stagger">
+            <div><h3>What segmentation models miss</h3><p>Small metastases and resection cavities are where brain tumour models lose the most accuracy. My BraTS-METS work weights these regions in the loss, samples cavity cases more often and reports results lesion by lesion as well as by Dice.</p></div>
+            <div><h3>Results that hold on new data</h3><p>I test on data the model never saw while it was tuned: hidden challenge test sets for knee MRI and skin lesions, and ECGs from two other hospitals for atrial fibrillation. In the skin lesion work, the models with the best cross-validation scores did worse on the hidden test.</p></div>
+            <div><h3>What a model relies on</h3><p>In the ECG project I measure whether an AF detector uses atrial activity or only irregular beat timing. On knee MRI, the attention maps showed the model reading the MCL mostly from sagittal images, while radiologists read it on coronal images.</p></div>
+            <div><h3>Labels from radiology reports</h3><p>Expert image labels are scarce, but reports exist for almost every scan. On knee MRI, averaging three report readers gave better labels than any one of them, and those labels raised the hidden-test AUC more than a larger image model did.</p></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
