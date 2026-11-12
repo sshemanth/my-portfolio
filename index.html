@@ -8,6 +8,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  document.documentElement.classList.add("js");
+  // If the animation library cannot load, show everything after a short wait.
+  setTimeout(function(){ if(!document.documentElement.classList.contains("motion-ready")) document.documentElement.classList.add("no-motion"); }, 2500);
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "motion": "https://cdn.jsdelivr.net/npm/motion@11.18.2/+esm"
+} }
+</script>
 <style>
 /* tokens from designlang extraction of the reference */
 :root{
@@ -32,7 +43,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body{position:relative;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding-left:24px;padding-right:24px}
@@ -53,7 +64,7 @@ header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 9
 @media (max-width:900px){.links{display:none}}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,640px);align-items:center;padding-top:120px;padding-bottom:140px;min-height:calc(88svh - 68px)}
+.hero{display:grid;grid-template-columns:minmax(0,640px);align-items:center;padding-top:120px;padding-bottom:140px;min-height:calc(100svh - 68px)}
 h1{font:400 clamp(44px,6.2vw,68px)/.98 var(--serif);letter-spacing:-.028em;margin-top:20px}
 .role{font:400 24px/1.4 var(--serif);color:var(--navy);margin-top:20px}
 .lede{max-width:50ch;color:var(--text-2);margin-top:20px;font-size:18px;line-height:1.7}
@@ -79,12 +90,28 @@ h1{font:400 clamp(44px,6.2vw,68px)/.98 var(--serif);letter-spacing:-.028em;margi
 .paper .go{color:var(--on-navy);display:inline-flex;align-items:center;gap:6px;margin-top:24px;font-size:14px;font-weight:500;padding:8px 12px;margin-left:-12px;border-radius:8px;transition:background-color .15s var(--ease)}
 .paper .go:hover{background:rgba(255,255,255,.08)}
 
-/* hero background */
+/* hero: 3D scene */
 .hero-wrap{position:relative;isolation:isolate;overflow:hidden}
-.hero-wrap::before{content:"";position:absolute;inset:0;z-index:-2;background:url(network-bg.jpg) center 55%/cover no-repeat;mix-blend-mode:multiply}
-.hero-wrap::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 70%,transparent) 38%,transparent 62%),linear-gradient(180deg,transparent 70%,var(--bg) 100%)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-wrap::before{filter:invert(1) hue-rotate(180deg);mix-blend-mode:screen;opacity:.5}}
-@media (max-width:900px){.hero-wrap::after{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 60%,transparent),var(--bg))}}
+#hero-scene{position:absolute;inset:0;z-index:-2;opacity:0;transition:opacity .6s var(--ease)}
+#hero-scene.ready{opacity:1}
+#hero-scene canvas{display:block;width:100%;height:100%}
+.hero-wrap::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 78%,transparent) 34%,transparent 58%),linear-gradient(180deg,transparent 72%,var(--bg) 100%)}
+.hero-wrap.no-webgl::before{content:"";position:absolute;inset:0;z-index:-2;background:url(network-bg.jpg) center 55%/cover no-repeat;mix-blend-mode:multiply}
+@media (max-width:900px){#hero-scene{top:auto;height:360px}.hero-wrap .hero{padding-bottom:340px}.hero-wrap::after{background:linear-gradient(180deg,var(--bg) 0%,var(--bg) calc(100% - 380px),transparent calc(100% - 320px),transparent 88%,var(--bg) 100%)}}
+.hero h1 .word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.hero h1 .word>span{display:inline-block;will-change:transform}
+
+/* scroll progress, the signature: a signal running along the top edge */
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--navy);transform-origin:0 50%;transform:scaleX(0)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .progress{background:var(--accent)}}
+
+/* 3D tilt surfaces */
+.pub-band,.skills,.focus-wrap{perspective:1200px}
+[data-tilt]{transform-style:preserve-3d;will-change:transform;position:relative}
+[data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s var(--ease);background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.10),transparent 60%)}
+[data-tilt]:hover::after{opacity:1}
+.group[data-tilt]::after{background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(24,50,74,.05),transparent 60%)}
+
 .pub-band{padding-bottom:96px}
 .pub-band .paper{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
 .pub-band .paper h2{font-size:30px;margin-top:12px}
@@ -157,9 +184,9 @@ h2.sec{font:400 clamp(34px,4.4vw,48px)/1.06 var(--serif);letter-spacing:-.02em}
 footer{border-top:1px solid var(--line-soft);padding:32px 0 48px;font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
-.rise{opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
-.rise.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+.js .rise,.js .stagger>*,.js .hero .intro{opacity:0}
+.no-motion .rise,.no-motion .stagger>*,.no-motion .hero .intro{opacity:1!important}
+@media (prefers-reduced-motion:reduce){.js .rise,.js .stagger>*,.js .hero .intro{opacity:1}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -204,12 +231,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     </div>
     <a href="mailto:sshemanthofficial@gmail.com" class="nav-cta">Get in touch</a>
   </nav>
+  <div class="progress" aria-hidden="true"></div>
 </header>
 
 <main id="top">
   <section class="hero-wrap">
+  <div id="hero-scene" aria-hidden="true"></div>
   <div class="wrap hero">
-    <div class="rise">
+    <div class="intro">
       <p class="label">Medical AI · Research</p>
       <h1>Sri Sai Hemanth Bollepalli</h1>
       <p class="role">Medical AI Researcher</p>
@@ -228,7 +257,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </section>
 
   <div class="wrap pub-band">
-    <aside class="paper rise" aria-label="Latest publication">
+    <aside class="paper rise" data-tilt="3" aria-label="Latest publication">
       <div>
         <span class="k">Latest publication · accepted</span>
         <h2>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h2>
@@ -263,14 +292,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="sec-head rise"><span class="label">Research</span><h2 class="sec">Research interests</h2></div>
       <div class="body-grid rise">
         <div></div>
-        <div>
-          <div class="areas">
+        <div class="focus-wrap">
+          <div class="areas stagger">
             <div><h3>Medical image segmentation</h3><p>Deep learning for detecting and delineating lesions and anatomy in volumetric scans.</p></div>
             <div><h3>Reliability and uncertainty</h3><p>Statistical guarantees and calibrated confidence for clinical model outputs.</p></div>
             <div><h3>Explainable AI</h3><p>Making model decisions on images and physiological signals interpretable to clinicians.</p></div>
             <div><h3>Learning from clinical data</h3><p>Weak supervision from radiology reports and validation on external datasets.</p></div>
           </div>
-          <article class="focus">
+          <article class="focus" data-tilt="2">
             <span class="label">Current project · 2026</span>
             <h3>Lesion-level statistical guarantees for medical image segmentation</h3>
             <p>Segmentation models are usually judged by average scores, while clinical decisions are made lesion by lesion. This project applies conformal prediction to post-treatment brain metastasis segmentation to provide per-lesion guarantees on detection and missed findings.</p>
@@ -287,8 +316,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <section class="block" id="work">
     <div class="wrap">
       <div class="sec-head rise"><span class="label">Projects</span><h2 class="sec">Publications and projects</h2></div>
-      <ul class="work">
-        <li class="rise">
+      <ul class="work stagger">
+        <li>
           <span class="yr num">2026</span>
           <div>
             <h3>Region-Aware Residual Encoder nnU-Net for Multi-Region Brain Metastasis Segmentation</h3>
@@ -307,7 +336,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           </div>
           <span class="kind ok">Accepted paper</span>
         </li>
-        <li class="rise">
+        <li>
           <span class="yr num">2026</span>
           <div>
             <h3>Robust Tumour Segmentation and Small-Lesion Detection with CNN and Transformer Ensembles</h3>
@@ -322,7 +351,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           </div>
           <span class="kind">Completed</span>
         </li>
-        <li class="rise">
+        <li>
           <span class="yr num">2026</span>
           <div>
             <h3>Explainable Atrial Fibrillation Detection from 12-Lead Electrocardiograms</h3>
@@ -339,7 +368,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           </div>
           <span class="kind">In progress</span>
         </li>
-        <li class="rise">
+        <li>
           <span class="yr num">2026</span>
           <div>
             <h3>Multi-Label Knee MRI Abnormality Detection Using Report-Derived Weak Supervision</h3>
@@ -355,7 +384,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           </div>
           <span class="kind">Completed</span>
         </li>
-        <li class="rise">
+        <li>
           <span class="yr num">2026</span>
           <div>
             <h3>Rare-Class-Aware Multimodal Skin Lesion Diagnosis</h3>
@@ -379,8 +408,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <section class="block" id="skills">
     <div class="wrap">
       <div class="sec-head rise"><span class="label">Technology</span><h2 class="sec">Technology stack</h2></div>
-      <div class="skills rise">
-        <div class="group">
+      <div class="skills stagger">
+        <div class="group" data-tilt="4">
           <h3>Deep learning</h3>
           <ul>
             <li><svg class="logo"><use href="#l-python"/></svg>Python</li>
@@ -389,7 +418,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
             <li><svg class="logo"><use href="#l-nvidia"/></svg>CUDA</li>
           </ul>
         </div>
-        <div class="group">
+        <div class="group" data-tilt="4">
           <h3>Data science</h3>
           <ul>
             <li><svg class="logo"><use href="#l-numpy"/></svg>NumPy</li>
@@ -399,7 +428,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
             <li><svg class="logo"><use href="#l-opencv"/></svg>OpenCV</li>
           </ul>
         </div>
-        <div class="group">
+        <div class="group" data-tilt="4">
           <h3>MLOps and tools</h3>
           <ul>
             <li><svg class="logo"><use href="#l-docker"/></svg>Docker</li>
@@ -409,7 +438,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
             <li><svg class="logo"><use href="#l-github"/></svg>GitHub</li>
           </ul>
         </div>
-        <div class="group">
+        <div class="group" data-tilt="4">
           <h3>Cloud and compute</h3>
           <ul>
             <li><svg class="logo"><use href="#l-amazonwebservices"/></svg>AWS SageMaker</li>
@@ -418,7 +447,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
             <li><svg class="logo"><use href="#l-apple"/></svg>Apple Silicon (MPS)</li>
           </ul>
         </div>
-        <div class="group">
+        <div class="group" data-tilt="4">
           <h3>Web development</h3>
           <ul>
             <li><svg class="logo"><use href="#l-nextdotjs"/></svg>Next.js</li>
@@ -435,12 +464,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <section class="block" id="education">
     <div class="wrap">
       <div class="sec-head rise"><span class="label">Education</span><h2 class="sec">Education</h2></div>
-      <ul class="work edu">
-        <li class="rise">
+      <ul class="work edu stagger">
+        <li>
           <span class="yr num">2025 – 2027</span>
           <div><h3>Master of Artificial Intelligence</h3><p class="meta">University of Technology Sydney, Australia · coursework completed</p></div>
         </li>
-        <li class="rise">
+        <li>
           <span class="yr num">2020 – 2024</span>
           <div><h3>Bachelor of Technology in Computer Science</h3><p class="meta">Jawaharlal Nehru Technological University Kakinada, India</p></div>
         </li>
@@ -466,13 +495,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="wrap"><span>Sri Sai Hemanth Bollepalli · Medical AI Researcher</span><span class="num">© 2026</span></div>
 </footer>
 
-<script>
-(function(){
-  var els=document.querySelectorAll('.rise');
-  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
-  els.forEach(function(e,i){e.style.transitionDelay=Math.min(i%4,3)*40+'ms';io.observe(e)});
-})();
-</script>
+<script type="module" src="js/scene.js"></script>
+<script type="module" src="js/animations.js"></script>
 </body>
 </html>
