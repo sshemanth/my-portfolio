@@ -13,7 +13,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  */
 export function Motion() {
   useGSAP(() => {
-    if (document.documentElement.dataset.motion !== "full") return;
+    const html = document.documentElement;
+    if (html.dataset.motion !== "full") return;
+    html.dataset.live = "1"; // tells the gate in layout.tsx that the motion script took over
 
     ScrollTrigger.batch("[data-reveal]", {
       start: "top 88%",

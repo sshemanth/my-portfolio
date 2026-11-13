@@ -228,9 +228,6 @@ export function Education() {
 export function Contact() {
   return (
     <section id="contact" className="contact" aria-labelledby="contact-h">
-      {/* A still from deep inside the hero network, reused as a quiet bookend. Decorative. */}
-      {/* eslint-disable-next-line @next/next/no-img-element -- static export: stills are pre-rendered by scripts/build-posters.mjs */}
-      <img className="contact-art" src={asset("hero-network/closing-1280.webp")} alt="" width={1280} height={720} loading="lazy" decoding="async" />
       <div className="wrap contact-inner">
         <p className="eyebrow" data-reveal><span className="num">07</span>{contact.label}</p>
         <h2 id="contact-h" data-reveal>{contact.heading}</h2>

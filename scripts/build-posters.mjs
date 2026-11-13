@@ -1,10 +1,10 @@
-// Renders the stills of the hero network from the real scene, so the poster that paints before
-// JavaScript loads matches the live 3D network exactly.
+// Renders stills of the background network from the real scene: the fallback shown when WebGL
+// is unavailable, and the social card.
 //
 //   npm run build && npm run hero:posters
 //
 // Needs Playwright with Chromium (`npm i -D playwright && npx playwright install chromium`).
-// Writes public/hero-network/ (posters, closing still) and public/og.jpg. Rebuild afterwards.
+// Writes public/hero-network/ and public/og.jpg. Rebuild afterwards.
 import { createServer } from "node:http";
 import { readFile, mkdir } from "node:fs/promises";
 import { extname, join, resolve } from "node:path";
@@ -40,15 +40,11 @@ const browser = await chromium.launch({ args: ["--use-gl=angle", "--use-angle=sw
 async function still(width, height, p, scale = 1) {
   const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: scale });
   await page.goto(url);
-  await page.waitForFunction(() => window.__heroScene, null, { timeout: 30000 });
-  await page.addStyleTag({
-    content: `.site-header,.hero-copy,.hero-veil,.hero-poster,.hero-ticks,.hero-cue{display:none!important}
-      .hero-media{position:fixed!important;inset:0!important;height:100vh!important;-webkit-mask-image:none!important;mask-image:none!important}
-      .hero-net{opacity:1!important;transition:none!important}`,
-  });
-  await page.evaluate((v) => new Promise((r) => requestAnimationFrame(() => { window.__heroScene.still(v); requestAnimationFrame(r); })), p);
+  await page.waitForFunction(() => window.__netScene, null, { timeout: 30000 });
+  await page.addStyleTag({ content: `main,footer,.site-header{visibility:hidden!important}.bg-net{opacity:1!important;transition:none!important}` });
+  await page.evaluate((v) => new Promise((r) => requestAnimationFrame(() => { window.__netScene.still(v); requestAnimationFrame(r); })), p);
   await page.waitForTimeout(300);
-  const png = await page.locator(".hero-net").screenshot();
+  const png = await page.locator(".bg-net").screenshot();
   await page.close();
   return png;
 }
@@ -61,11 +57,7 @@ const write = async (png, name, width) => {
 };
 
 const landscape = await still(1600, 900, 0, 1.5);
-for (const w of [960, 1600, 2400]) await write(landscape, `poster-landscape-${w}`, w);
-const portrait = await still(540, 460, 0, 2);
-for (const w of [640, 1080]) await write(portrait, `poster-portrait-${w}`, w);
-const closing = await still(1280, 720, 1);
-await sharp(closing).flatten({ background: "#fafafd" }).webp({ quality: 80 }).toFile(join(DEST, "closing-1280.webp"));
+await write(landscape, "poster-landscape-1600", 1600);
 
 // Social card: the landscape still with the name set on the calm left side.
 const card = await browser.newPage({ viewport: { width: 1200, height: 630 } });

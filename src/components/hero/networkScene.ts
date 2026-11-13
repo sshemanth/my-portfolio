@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
 /**
- * The hero subject: a deep neural network of translucent glass nodes. Layers recede into the
- * scene; `setProgress(0–1)` moves the camera forward through them while signals flow from layer
- * to layer. The layout is seeded, so it is identical on every visit and matches the posters.
+ * The page background: a deep neural network of translucent glass nodes. Layers recede into the
+ * scene; `setProgress(0–1)` (the page scroll) moves the camera forward through them while signals
+ * flow from layer to layer. The layout is seeded, so it is identical on every visit.
  */
 export type NetworkScene = {
   setProgress: (p: number) => void;
@@ -12,7 +12,7 @@ export type NetworkScene = {
   dispose: () => void;
 };
 
-type Options = { portrait: boolean; animate: boolean };
+type Options = { animate: boolean };
 
 const PAPER = new THREE.Color("#fafafd");
 const RIM = new THREE.Color("#6f9fcf");
@@ -27,7 +27,7 @@ export function createNetworkScene(host: HTMLElement, opts: Options): NetworkSce
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(PAPER, 6, 30);
-  const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 80);
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 80);
 
   // Deterministic random numbers.
   let seed = 11;
@@ -164,7 +164,7 @@ export function createNetworkScene(host: HTMLElement, opts: Options): NetworkSce
     "position",
     new THREE.BufferAttribute(new Float32Array(edges.flatMap(([a, b]) => [nodes[a].x, nodes[a].y, nodes[a].z, nodes[b].x, nodes[b].y, nodes[b].z])), 3),
   );
-  const lineMat = new THREE.LineBasicMaterial({ color: LINE, transparent: true, opacity: 0.42, depthWrite: false, fog: true });
+  const lineMat = new THREE.LineBasicMaterial({ color: LINE, transparent: true, opacity: 0.4, depthWrite: false, fog: true });
   const lines = new THREE.LineSegments(lineGeo, lineMat);
   lines.frustumCulled = false;
   net.add(lines);
@@ -242,7 +242,7 @@ export function createNetworkScene(host: HTMLElement, opts: Options): NetworkSce
   const pointer = { x: 0, y: 0 };
   const cam = { x: 0, y: 0, z: 7 };
   let progress = 0;
-  let wide = !opts.portrait;
+  let wide = true;
 
   const resize = () => {
     const w = host.clientWidth, h = host.clientHeight;
@@ -251,7 +251,7 @@ export function createNetworkScene(host: HTMLElement, opts: Options): NetworkSce
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     wide = w / h > 1;
-    camera.fov = wide ? 48 : 60;
+    camera.fov = wide ? 50 : 62;
     camera.updateProjectionMatrix();
     const scale = h * renderer.getPixelRatio();
     haloMat.uniforms.uScale.value = scale * 0.42;
@@ -260,17 +260,17 @@ export function createNetworkScene(host: HTMLElement, opts: Options): NetworkSce
 
   const frame = (dt: number, time: number, snap = false) => {
     const sway = opts.animate ? Math.sin(time * 0.15) * 0.4 : 0;
-    // The network sits in the right half on wide screens, like the original subject, and the camera
-    // travels about two thirds of the way through it over the hero.
-    const targetZ = 7 - progress * depth * 0.62;
-    const targetX = (wide ? 3.2 : 0.6) + pointer.x * 0.8 + sway + progress * 1.4;
-    const targetY = -pointer.y * 0.45 + Math.cos(progress * Math.PI) * 0.35 - 0.2;
+    // From the top of the page to the bottom the camera travels through all the layers,
+    // drifting gently side to side; on wide screens the network leans to the right of the text.
+    const targetZ = 7 - progress * (depth - 2);
+    const targetX = (wide ? 2.6 : 0) + pointer.x * 0.9 + sway + Math.sin(progress * Math.PI * 2) * 1.2;
+    const targetY = -pointer.y * 0.5 + Math.cos(progress * Math.PI * 1.5) * 0.5;
     const k = snap ? 1 : Math.min(1, dt * 2.5);
     cam.x += (targetX - cam.x) * k;
     cam.y += (targetY - cam.y) * k;
     cam.z += (targetZ - cam.z) * k;
     camera.position.set(cam.x, cam.y, cam.z);
-    camera.lookAt(cam.x * 0.35 - (wide ? 1.4 : 0.2), cam.y * 0.3, cam.z - 10);
+    camera.lookAt(cam.x * 0.35 - (wide ? 1.2 : 0), cam.y * 0.3, cam.z - 10);
     if (opts.animate && !snap) stepSignals(dt);
     renderer.render(scene, camera);
   };

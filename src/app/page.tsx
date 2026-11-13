@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Motion } from "@/components/Motion";
-import { HeroSequence } from "@/components/hero/HeroSequence";
+import { Hero } from "@/components/hero/Hero";
+import { NetworkBackground } from "@/components/NetworkBackground";
 import { Contact, Education, Facts, Footer, Projects, Publications, ResearchPath, Technology, Themes } from "@/components/sections/Sections";
 import { site } from "@/content/site";
 
@@ -16,9 +17,10 @@ const jsonLd = {
 export default function Page() {
   return (
     <>
+      <NetworkBackground />
       <Header />
       <main>
-        <HeroSequence />
+        <Hero />
         <div id="content">
           <Facts />
           <ResearchPath />
