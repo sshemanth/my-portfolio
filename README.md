@@ -1,6 +1,6 @@
 # Sri Sai Hemanth Bollepalli · Portfolio
 
-A single-page research portfolio with a scroll-driven 3D hero: a neural network of glass nodes that the camera travels through as you scroll. Static export: no server, no runtime AI calls, no credentials.
+A single-page research portfolio with a light 3D neural network of glass nodes behind the whole page. The camera travels through the network as you scroll. Static export: no server, no runtime AI calls, no credentials.
 
 **Stack:** Next.js 16 (App Router, static export) · React 19 · TypeScript · Three.js · GSAP ScrollTrigger · plain CSS with design tokens.
 
@@ -42,22 +42,21 @@ Requires Node 20.9 or newer. `npm run hero:posters` additionally needs Playwrigh
 | --- | --- |
 | Any text, links, results, chart numbers | `src/content/site.ts` (the only file with copy) |
 | Colours, type scale, spacing | the `:root` tokens at the top of `src/app/globals.css` |
-| Scroll timing: pinned distance, when each block of copy appears, camera easing, smoothing | `src/components/hero/hero.config.ts` |
 | The network: layers, colours, camera path, number of signals | `src/components/hero/networkScene.ts` |
-| Hero stills (poster, closing image, social card) | `npm run build && npm run hero:posters`, then build again |
+| How strong the network is behind the content | `--net-strength` in `src/components/NetworkBackground.tsx` |
+| Fallback still and social card | `npm run build && npm run hero:posters`, then build again |
 | Paper figures | add to `media-src/figures/`, then `npm run figures:build` |
 | Fonts | `src/app/layout.tsx` and `src/app/fonts/` |
 
-## How the hero works
+## How the background works
 
-`src/components/hero/HeroSequence.tsx` is a tall section containing a sticky full-height stage. One GSAP timeline is scrubbed by that section's scroll progress (0 to 1). The same timeline moves the camera through the network and fades the three blocks of copy, so they stay in step in both directions, after a resize, a reload mid-page or a jump.
+`src/components/NetworkBackground.tsx` fixes one canvas behind the page and `src/components/hero/networkScene.ts` draws the network in it with Three.js: fourteen layers of translucent glass nodes, seeded so the layout is identical on every visit. Signals travel from layer to layer and nodes pulse when one arrives.
 
-- **The network.** `networkScene.ts` builds fourteen layers of translucent glass nodes with Three.js, seeded so the layout is identical on every visit. Signals travel from layer to layer and nodes pulse when one arrives. The camera follows the pointer slightly and moves forward through the layers as the hero scrolls.
-- **Poster first.** A still of the same scene is in the HTML and paints immediately. Three.js loads only when the hero is near the viewport, and the live scene fades in over its own still.
-- **Light on devices.** The scene renders only while it is on screen and the tab is visible, and the pixel ratio is capped.
-- **Portrait screens** show the network in a band at the top, with the copy below it.
-- **Reduced motion, no JavaScript, or a script failure:** the same markup renders as a normal stacked section over the still. Nothing is hidden.
-- **No WebGL, Save-Data or 2G connections:** the scene is skipped and the still gets a slow scroll-linked push instead.
+- **Scroll.** The page scroll position moves the camera from the first layer to the last. The network is at full strength behind the hero and softer behind the content.
+- **Normal scrolling.** Nothing is pinned, so the introduction and results follow the name straight away.
+- **Light on devices.** Three.js loads after the page, the scene renders only while the tab is visible, and the pixel ratio is capped.
+- **Reduced motion:** the network is drawn once for each scroll position, with no animation.
+- **No WebGL, Save-Data or 2G connections:** a still of the network is shown instead.
 
 ## Deploying
 
@@ -92,19 +91,20 @@ No secrets are used anywhere.
 - The brief left the primary button destination blank. It points to the email address already published on the original site.
 - "White, transparent" was read as a light-only design. There is no dark theme.
 - The audience is researchers and prospective supervisors, and the main action is getting in touch about a PhD position.
-- The hero subject is the 3D neural network from the previous version of the site. The earlier glass-brain clip is no longer used. See `ASSETS.md`.
+- The background is the 3D neural network from the previous version of the site. The earlier glass-brain clip and the pinned scroll hero are no longer used. See `ASSETS.md`.
 
 ## Project layout
 
 ```
 src/content/site.ts            all copy and data
 src/app/                       layout, page, tokens and styles, fonts
-src/components/hero/           HeroSequence, the Three.js network scene, timing config
+src/components/hero/           Hero section and the Three.js network scene
+src/components/NetworkBackground.tsx   fixed background that hosts the network
 src/components/sections/       content sections
 src/components/                Header (with mobile menu), Motion (reveals, bars, progress)
 scripts/                       hero stills, figure builder and the preview server
 media-src/                     source figures (not shipped)
-public/                        shipped assets, including the hero stills in hero-network/
+public/                        shipped assets, including the fallback still in hero-network/
 .github/workflows/deploy.yml    GitHub Pages build and deploy
 ASSETS.md                      asset manifest and generation records
 ```
