@@ -1,6 +1,6 @@
 /**
  * All editable site copy and data live here. Components only lay it out.
- * Text is carried over from the original portfolio; change wording here, not in components.
+ * Change wording here, not in components.
  */
 
 export type Bar = { label: string; value: number; display: string; highlight?: boolean };
@@ -37,21 +37,15 @@ export const nav: LinkItem[] = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** The three beats of the hero sequence. Timing lives in components/hero/hero.config.ts. */
+/** The hero: name and links on the first screen, then a short introduction. */
 export const hero = {
   posterAlt: "A deep neural network of translucent glass nodes, with signals travelling between its layers",
   primary: { label: "Read my research", href: "#path" },
   secondary: { label: "Email me", href: `mailto:${site.email}` },
   work: {
     label: "Recent work",
-    lead: "My recent work segments brain metastases on post-treatment MRI, including the resection cavity left after surgery, which is the hardest region for standard models.",
-    rest: "I also work with knee MRI, dermatology images and 12-lead ECGs. In each project I look for the cases where the model fails and check whether its results hold on data it was never tuned on.",
-    stat: { value: "0.238 → 0.586", caption: "Resection cavity F1 against a standard nnU-Net, BraTS-METS 2026" },
-  },
-  ask: {
-    label: "Open to PhD positions",
-    lead: "I am looking for a PhD position in medical image analysis.",
-    rest: "If this work is close to what your group does, I would be glad to talk.",
+    lead: "I segment brain metastases on post-treatment MRI, including the resection cavity left after surgery, which standard models handle worst.",
+    rest: "I also work with knee MRI, dermatology images and 12-lead ECGs. In each project I look for the cases where the model fails, and I check its results on data it was never tuned on.",
   },
 };
 
@@ -63,8 +57,8 @@ export const facts = [
 
 export const path = {
   label: "Research path",
-  heading: "From a challenge entry to lesion-level guarantees",
-  intro: "My brain metastasis work has moved in three steps. Each one started from what the step before it could not do.",
+  heading: "Brain metastasis segmentation, in three steps",
+  intro: "Each step of my brain metastasis work started from a problem the step before it left unsolved.",
   steps: [
     {
       id: "step-1",
@@ -96,7 +90,7 @@ export const path = {
         },
       ] as Chart[],
       note: null as string | null,
-      open: "The cavity was still the weakest of the four regions, and lesions smaller than 27 mm³ did not improve at all.",
+      open: "The cavity was still the weakest of the four regions, and lesions smaller than 27 mm³ did not improve.",
       status: null as string | null,
       links: [
         { label: "Paper", href: "https://papers.miccai.org/miccai-2026-sat/BraTS_METS_008.html", external: true },
@@ -109,7 +103,7 @@ export const path = {
       kind: ["Research project", "Supervised by Associate Professor Steve Ling"],
       title: "Recovering the cavities the challenge model missed",
       body: [
-        "I made the weakest region the whole project. A Primus V3-S transformer was trained with the same loss, with cavity cases drawn twice as often and half of the forced foreground patches centred on a cavity. Its probabilities were then averaged with the challenge model, and each cavity was also scored as found or missed.",
+        "This project focused on the weakest region. I trained a Primus V3-S transformer with the same loss, drew cavity cases twice as often and centred half of the forced foreground patches on a cavity. I then averaged its probabilities with the challenge model and scored each cavity as found or missed.",
       ],
       figure: null,
       charts: [
@@ -131,8 +125,8 @@ export const path = {
           ],
         },
       ] as Chart[],
-      note: "One cross-validation fold, so these numbers are not comparable with the official validation scores in step 01.",
-      open: "Ten of the fourteen missed cavities had a predicted probability below 0.1, so no threshold could bring them back. Most misses were medium cavities between 100 and 1,000 mm³. The checks also showed that 147 of the 260 validation cases came from patients with another scan in training, because the original folds were not grouped by patient.",
+      note: "These numbers come from one cross-validation fold and cannot be compared with the official validation scores in step 01.",
+      open: "Most misses were medium cavities between 100 and 1,000 mm³, and ten of the fourteen missed cavities had a predicted probability below 0.1, too low for any threshold to recover. The original folds were also not grouped by patient: 147 of the 260 validation cases came from patients with another scan in training.",
       status: null,
       links: [{ label: "Code", href: "https://github.com/sshemanth/brats-mets-primus-rc", external: true }] as LinkItem[],
     },
@@ -142,8 +136,8 @@ export const path = {
       kind: ["Current work"],
       title: "Lesion-level guarantees for brain metastasis segmentation",
       body: [
-        "A better model still misses some lesions, and an average Dice score does not say which ones. I am now applying conformal prediction to post-treatment brain metastasis MRI from BraTS-METS 2026, so the model can give per-lesion statistical guarantees on what it detects and what it may miss.",
-        "This work starts from scratch with newly trained models and uses only patient-grouped splits, so no patient appears in both training and testing.",
+        "A better model still misses some lesions, and an average Dice score does not say which ones. I am applying conformal prediction to post-treatment brain metastasis MRI from BraTS-METS 2026, so that the model gives per-lesion statistical guarantees on what it detects and what it may miss.",
+        "I am training new models from scratch for this, on patient-grouped splits only, so no patient appears in both training and testing.",
       ],
       figure: null,
       charts: [] as Chart[],
@@ -189,7 +183,7 @@ export const projects = {
       title: "Knee MRI abnormality detection from report-derived labels",
       context: "Two-person team · RSNA 2026 Knee Abnormality Detection",
       question: "Can twelve knee abnormalities be detected on MRI without expert image labels?",
-      body: "Three readers score each radiology report, written in one of six languages: a rule-based labeller, MedGemma-4B, and a 27B Qwen model running locally on a laptop. Their averaged scores train a 2.5D ConvNeXt with one attention map per finding.",
+      body: "The radiology reports are written in six languages. A rule-based labeller, MedGemma-4B and a 27B Qwen model running locally on a laptop each score every report, and their averaged scores train a 2.5D ConvNeXt with one attention map per finding.",
       charts: [
         {
           kind: "bars",
@@ -212,7 +206,7 @@ export const projects = {
         },
       ] as Chart[],
       miniFacts: [] as { value: string; caption: string }[],
-      finding: "Label quality set the ceiling. Adding the third report reader raised the hidden-test AUC from 0.842 to 0.865, a larger gain than any change to the image model. A bigger ConvNeXt scored lower on the expert-labelled studies.",
+      finding: "Better labels helped more than any change to the image model. Adding the third report reader raised the hidden-test AUC from 0.842 to 0.865, while a bigger ConvNeXt scored lower on the expert-labelled studies.",
       note: null as string | null,
       links: [{ label: "Code", href: "https://github.com/sshemanth/knee-mri-weak-supervision", external: true }] as LinkItem[],
     },
@@ -220,8 +214,8 @@ export const projects = {
       year: "2026",
       title: "Multimodal skin lesion diagnosis with rare classes",
       context: "MILK10k / ISIC challenge",
-      question: "How well can clinical and dermoscopic images, together with patient metadata, classify eleven lesion types when some types are very rare?",
-      body: "Each image view and the metadata have their own encoder, joined in a shared multi-label head. Rare classes are oversampled in the training manifests and weighted in the loss.",
+      question: "How well do clinical and dermoscopic images, together with patient metadata, classify eleven lesion types when some of them are very rare?",
+      body: "Each image view and the metadata go through their own encoder into a shared multi-label head. Rare classes are oversampled during training and weighted in the loss.",
       charts: [
         {
           kind: "bars",
@@ -234,7 +228,7 @@ export const projects = {
         },
       ] as Chart[],
       miniFacts: [],
-      finding: "Swin backbones and pretraining on external ISIC data raised cross-validation scores but scored lower on the hidden test. The best official result came from the simpler ensemble trained only on MILK10k.",
+      finding: "Swin backbones and pretraining on external ISIC data raised cross-validation scores and lowered the hidden-test score. The best official result came from the simpler ensemble trained only on MILK10k.",
       note: null,
       links: [{ label: "Code", href: "https://github.com/sshemanth/multimodal-lesion-diagnosis", external: true }] as LinkItem[],
     },
@@ -243,14 +237,14 @@ export const projects = {
       title: "What atrial fibrillation detectors rely on in 12-lead ECGs",
       context: "Ongoing",
       question: "Does a deep AF detector use atrial signs such as missing P-waves and fibrillatory waves, or only irregular beat timing?",
-      body: "A 1D ResNet trained on PTB-XL is tested without retraining on ECGs from Chapman-Shaoxing and Georgia, and compared with a model that sees only RR intervals. Six attribution methods, occlusion and counterfactual edits measure which parts of each beat the model needs. AF with a regular ventricular rate and paced rhythms are analysed on their own, because the timing cue is weak there.",
+      body: "I train a 1D ResNet on PTB-XL, test it without retraining on ECGs from Chapman-Shaoxing and Georgia, and compare it with a model that sees only RR intervals. Attribution methods, occlusion and counterfactual edits show which parts of each beat the model needs. AF with a regular ventricular rate and paced rhythms get their own analysis, because the timing cue is weak there.",
       charts: [] as Chart[],
       miniFacts: [
         { value: "21,742", caption: "PTB-XL ECGs for training and internal testing, 7.0% AF" },
         { value: "9,794", caption: "Chapman-Shaoxing ECGs, external test only, 18.2% AF" },
       ],
       finding: null as string | null,
-      note: "Experiments are running. Results will be added here when they are complete.",
+      note: "Experiments are still running.",
       links: [] as LinkItem[],
     },
   ],
@@ -260,10 +254,10 @@ export const themes = {
   label: "Across projects",
   heading: "What connects this work",
   items: [
-    { title: "What segmentation models miss", body: "Small metastases and resection cavities are where brain tumour models lose the most accuracy. My BraTS-METS work weights these regions in the loss, samples cavity cases more often and reports results lesion by lesion as well as by Dice." },
-    { title: "Results that hold on new data", body: "I test on data the model never saw while it was tuned: hidden challenge test sets for knee MRI and skin lesions, and ECGs from two other hospitals for atrial fibrillation. In the skin lesion work, the models with the best cross-validation scores did worse on the hidden test." },
-    { title: "What a model relies on", body: "In the ECG project I measure whether an AF detector uses atrial activity or only irregular beat timing. On knee MRI, the attention maps showed the model reading the MCL mostly from sagittal images, while radiologists read it on coronal images." },
-    { title: "Labels from radiology reports", body: "Expert image labels are scarce, but reports exist for almost every scan. On knee MRI, averaging three report readers gave better labels than any one of them, and those labels raised the hidden-test AUC more than a larger image model did." },
+    { title: "What segmentation models miss", body: "Brain tumour models lose the most accuracy on small metastases and resection cavities. My BraTS-METS work weights these regions in the loss, samples cavity cases more often and reports results lesion by lesion as well as by Dice." },
+    { title: "Results on data the model has not seen", body: "I test on data kept out of tuning: hidden challenge test sets for knee MRI and skin lesions, and ECGs from two other hospitals for atrial fibrillation. In the skin lesion work, the models with the best cross-validation scores did worse on the hidden test." },
+    { title: "What a model relies on", body: "In the ECG project I measure whether an AF detector uses atrial activity or only irregular beat timing. On knee MRI, the attention maps showed the model reading the MCL mostly from sagittal images, although radiologists read it on coronal images." },
+    { title: "Labels from radiology reports", body: "Expert image labels are scarce, while almost every scan has a report. On knee MRI, the average of three report readers gave better labels than any one of them, and those labels raised the hidden-test AUC more than a larger image model did." },
   ],
 };
 
@@ -283,13 +277,13 @@ export const education = {
   label: "Education",
   heading: "Education",
   items: [
-    { years: "2025 – 2027", title: "Master of Artificial Intelligence", detail: "University of Technology Sydney, Australia · coursework completed" },
-    { years: "2020 – 2024", title: "Bachelor of Technology in Computer Science", detail: "Jawaharlal Nehru Technological University Kakinada, India" },
+    { years: "2025 to 2027", title: "Master of Artificial Intelligence", detail: "University of Technology Sydney, Australia · coursework completed" },
+    { years: "2020 to 2024", title: "Bachelor of Technology in Computer Science", detail: "Jawaharlal Nehru Technological University Kakinada, India" },
   ],
 };
 
 export const contact = {
   label: "Contact",
-  heading: "Let's connect",
-  body: "I am looking for a PhD position in medical image analysis. If this work is close to what your group does, I would be glad to talk.",
+  heading: "Open to PhD positions",
+  body: "I am looking for a PhD position in medical image analysis. If your group works on similar problems, I would be glad to talk.",
 };
